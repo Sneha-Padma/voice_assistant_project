@@ -32,19 +32,8 @@ def open_notepad():
 def open_calculator():
     system = platform.system()
     if system == "Windows":
-        try:
-            os.system("calc")
-        except Exception as e:
-            print(f"⚠️ Could not open Calculator: {e}")
+        os.system("calc")
     elif system == "Darwin":
-        try:
-            subprocess.Popen(["open", "-a", "Calculator"])
-        except FileNotFoundError:
-            print("Calculator not found on macOS.")
+        subprocess.Popen(["open", "-a", "Calculator"])
     elif system == "Linux":
-        try:
-            subprocess.Popen(["gnome-calculator"])
-        except FileNotFoundError:
-            print("Calculator not found on Linux.")
-    else:
-        print("Calculator not supported on this OS.")
+        subprocess.Popen(["gnome-calculator"])

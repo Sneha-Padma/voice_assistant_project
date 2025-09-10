@@ -1,7 +1,6 @@
 # __init__.py
 import speech_recognition as sr
 import pyttsx3
-from .speech import listener, engine
 from .speech import talk, take_command
 from .automation import open_google, open_youtube, open_notepad, open_calculator, take_screenshot
 from .commands import get_info, play_on_youtube, get_time, tell_joke

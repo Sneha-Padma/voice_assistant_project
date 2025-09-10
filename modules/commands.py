@@ -1,7 +1,8 @@
 import wikipedia
 import datetime
 import pyjokes
-
+import webbrowser
+import os
 # Nicknames and aliases
 nicknames = {
     "e musk": "Elon Musk",
@@ -23,6 +24,7 @@ aliases = {
 
 def get_info(query: str) -> str:
     try:
+        # Clean query
         person = query.lower().replace("who is", "").replace("tell me about", "").strip()
 
         # Replace nicknames and aliases
@@ -30,6 +32,10 @@ def get_info(query: str) -> str:
             if short in person:
                 person = full
 
+        # Capitalize properly for Wikipedia
+        person = person.title()
+
+        # Fetch summary
         return wikipedia.summary(person, sentences=2)
 
     except wikipedia.exceptions.DisambiguationError:
@@ -40,9 +46,6 @@ def get_info(query: str) -> str:
         return f"I had trouble connecting to Wikipedia: {e}"
 
 
-import webbrowser
-import os
-
 def play_on_youtube(song: str):
     """Open YouTube search results in Chrome or Edge only"""
     url = f"https://www.youtube.com/results?search_query={song}"
@@ -51,9 +54,11 @@ def play_on_youtube(song: str):
     edge_path = "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe %s"
 
     if os.path.exists(chrome_path.split()[0]):
+        import webbrowser
         webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path))
         webbrowser.get('chrome').open(url)
     elif os.path.exists(edge_path.split()[0]):
+        import webbrowser
         webbrowser.register('edge', None, webbrowser.BackgroundBrowser(edge_path))
         webbrowser.get('edge').open(url)
     else:
@@ -68,3 +73,4 @@ def get_time() -> str:
 
 def tell_joke() -> str:
     return pyjokes.get_joke()
+
