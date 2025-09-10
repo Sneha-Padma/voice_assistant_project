@@ -1,5 +1,4 @@
 import wikipedia
-import pywhatkit
 import datetime
 import pyjokes
 
@@ -41,8 +40,26 @@ def get_info(query: str) -> str:
         return f"I had trouble connecting to Wikipedia: {e}"
 
 
+import webbrowser
+import os
+
 def play_on_youtube(song: str):
-    pywhatkit.playonyt(song)
+    """Open YouTube search results in Chrome or Edge only"""
+    url = f"https://www.youtube.com/results?search_query={song}"
+
+    chrome_path = "C:/Program Files/Google/Chrome/Application/chrome.exe %s"
+    edge_path = "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe %s"
+
+    if os.path.exists(chrome_path.split()[0]):
+        webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path))
+        webbrowser.get('chrome').open(url)
+    elif os.path.exists(edge_path.split()[0]):
+        webbrowser.register('edge', None, webbrowser.BackgroundBrowser(edge_path))
+        webbrowser.get('edge').open(url)
+    else:
+        print("⚠️ No browser found, cannot open YouTube.")
+
+
 
 
 def get_time() -> str:

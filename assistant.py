@@ -85,10 +85,14 @@ def run_assistant():
         exit()
 
     # Play YouTube
-    elif "play" in command:
-        song = command.replace("play", "")
-        speak_text(f"Playing {song}")
-        commands.play_on_youtube(song)
+    elif command.startswith("play "):   # only if user says "play <something>"
+        song = command.replace("play", "").strip()
+        if song:
+            speak_text(f"Playing {song}")
+            commands.play_on_youtube(song)
+        else:
+            speak_text("Please tell me what you want me to play.")
+
 
     # Open apps / browser
     elif "open google" in command:
@@ -115,7 +119,7 @@ def run_assistant():
     elif "time" in command:
         speak_text(f"Current time is {commands.get_time()}")
 
-    # Wikipedia / general info
+
     # Wikipedia / general info
     else:
         import wikipedia, webbrowser
