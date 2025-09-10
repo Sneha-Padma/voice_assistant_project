@@ -20,7 +20,8 @@ def talk(text: str):
     if not text.strip() or engine is None:
         print(f"🗣️ {text}")
         return
-
+    print(f"🤖 Assistant: {text}")
+    
     def speak():
         try:
             engine.say(text)
@@ -28,7 +29,7 @@ def talk(text: str):
         except Exception as e:
             print(f"⚠️ Error in talk(): {e}")
 
-    threading.Thread(target=speak, daemon=True).start()
+    speak()
 
 
 def take_command(timeout: int = 5, phrase_time_limit: int = 8) -> str:

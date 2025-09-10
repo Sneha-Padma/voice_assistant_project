@@ -116,9 +116,24 @@ def run_assistant():
         speak_text(f"Current time is {commands.get_time()}")
 
     # Wikipedia / general info
+    # Wikipedia / general info
     else:
-        info = commands.get_info(command)
-        speak_text(info)
+        import wikipedia, webbrowser
+
+        try:
+         summary = wikipedia.summary(command, sentences=2)  # 1–2 lines
+         print(f"🤖 Assistant (summary): {summary}")
+         speak_text(summary)
+
+        # Open the full Wikipedia page
+         page = wikipedia.page(command)
+         webbrowser.open(page.url)
+
+        except Exception as e:
+         error_msg = "Sorry, I couldn't find details on that."
+         print(f"⚠️ {error_msg} ({e})")
+         speak_text(error_msg)
+
 
 
 if __name__ == "__main__":
